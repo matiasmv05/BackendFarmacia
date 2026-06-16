@@ -36,7 +36,7 @@ List<ValorInventarioProductoDTO> calcularValorInventarioPorProducto(
 @Query("""
     SELECT new com.farmacia.cristoredentor.module.ClasificacionAbc.dto.ValorInventarioProductoDTO(
         m.producto.id,
-        CAST(SUM(m.cantidad) AS big_decimal)
+        CAST(SUM(ABS(m.cantidad) * m.costoUnitario) AS big_decimal)
     )
     FROM MovimientoInventario m
     WHERE m.tipoMovimiento IN (
@@ -44,10 +44,9 @@ List<ValorInventarioProductoDTO> calcularValorInventarioPorProducto(
         com.farmacia.cristoredentor.Enum.TipoMovimiento.ajuste_salida
     )
     AND m.fechaHora >= :desde
-    AND m.cantidad > 0
     GROUP BY m.producto.id
-    HAVING SUM(m.cantidad) > 0
-    ORDER BY SUM(m.cantidad) DESC
+    HAVING SUM(ABS(m.cantidad) * m.costoUnitario) > 0
+    ORDER BY SUM(ABS(m.cantidad) * m.costoUnitario) DESC
     """)
 List<ValorInventarioProductoDTO> calcularValorRotacionPorProducto(
     @Param("desde") OffsetDateTime desde);
