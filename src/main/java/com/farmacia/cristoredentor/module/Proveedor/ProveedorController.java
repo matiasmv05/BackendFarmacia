@@ -49,7 +49,7 @@ public class ProveedorController {
 
     // GET /api/proveedores/todos
     @GetMapping("/todos")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ADMINISTRADOR', 'OPERADOR')")
     public ResponseEntity<List<ProveedorResponseDTO>> listarTodos() {
         return ResponseEntity.ok(service.listarActivos());
     }
