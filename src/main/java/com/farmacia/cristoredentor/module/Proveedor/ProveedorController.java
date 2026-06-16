@@ -49,15 +49,15 @@ public class ProveedorController {
 
     // GET /api/proveedores/todos
     @GetMapping("/todos")
-    @PreAuthorize("hasRole('ADMINISTRADOR', 'OPERADOR')")
-    public ResponseEntity<List<ProveedorResponseDTO>> listarTodos() {
-        return ResponseEntity.ok(service.listarActivos());
-    }
+@PreAuthorize("hasAnyRole('ADMINISTRADOR', 'OPERADOR')")
+public ResponseEntity<List<ProveedorResponseDTO>> listarTodos() {
+    return ResponseEntity.ok(service.listarActivos());
+}
 
     // GET /api/proveedores?page=0&limit=20&nombre=farma&activo=true
     // Accesible por ADMINISTRADOR y OPERADOR (para crear órdenes)
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'OPERADOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<PaginatedResponseDto<ProveedorResponseDTO>> listar(
             @RequestParam(defaultValue = "0")  Integer page,
             @RequestParam(defaultValue = "20") Integer limit,
