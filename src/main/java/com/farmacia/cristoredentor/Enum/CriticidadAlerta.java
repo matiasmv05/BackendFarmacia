@@ -2,7 +2,7 @@
 package com.farmacia.cristoredentor.Enum;
 
 public enum CriticidadAlerta {
-    alta,
-    media,
-    baja
+    ALTA,
+    MEDIA,
+    BAJA
 }

@@ -39,10 +39,11 @@ public class AuthService {
             .token(token)
             .tipo("Bearer")
             .expiresIn(3600)
-            .userId(usuario.getId())
-            .nombre(usuario.getNombreCompleto())
-            .email(usuario.getEmail())
-            .rol(usuario.getRol().name()) 
+            .id(usuario.getId())
+            .nombreCompleto(usuario.getNombreCompleto())
+            .username(usuario.getEmail())
+            .rol(usuario.getRol().name())
+            .telefono(usuario.getTelefono())
             .build();
 }
 }

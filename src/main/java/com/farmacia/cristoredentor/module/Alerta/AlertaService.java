@@ -107,9 +107,9 @@ public class AlertaService {
         int vencimientos = 0;
 
         for (Alerta a : activas) {
-            if (a.getCriticidad() == CriticidadAlerta.alta) alta++;
-            else if (a.getCriticidad() == CriticidadAlerta.media) media++;
-            else if (a.getCriticidad() == CriticidadAlerta.baja) baja++;
+            if (a.getCriticidad() == CriticidadAlerta.ALTA) alta++;
+            else if (a.getCriticidad() == CriticidadAlerta.MEDIA) media++;
+            else if (a.getCriticidad() == CriticidadAlerta.BAJA) baja++;
 
             if (a.getTipo() == TipoAlerta.vencimiento_rojo || 
                 a.getTipo() == TipoAlerta.vencimiento_amarillo ||
@@ -166,7 +166,7 @@ public class AlertaService {
         if (diasMinVenta != null && diasRestantes <= diasMinVenta) {
             // Ya no se puede vender, alerta roja forzada
             crearAlertaVencimientoSiNoExiste(
-                lote, TipoAlerta.vencimiento_rojo, CriticidadAlerta.alta,
+                lote, TipoAlerta.vencimiento_rojo, CriticidadAlerta.ALTA,
                 "Lote " + lote.getNumeroLote() + " no puede venderse: " +
                 diasRestantes + " días restantes (mínimo: " + diasMinVenta + ")");
             return;
@@ -174,19 +174,19 @@ public class AlertaService {
 
         if (diasRestantes <= diasRojo) {
             crearAlertaVencimientoSiNoExiste(
-                lote, TipoAlerta.vencimiento_rojo, CriticidadAlerta.alta,
+                lote, TipoAlerta.vencimiento_rojo, CriticidadAlerta.ALTA,
                 "Lote " + lote.getNumeroLote() + " vence en " +
                 diasRestantes + " días");
 
         } else if (diasRestantes <= diasAmarillo) {
             crearAlertaVencimientoSiNoExiste(
-                lote, TipoAlerta.vencimiento_amarillo, CriticidadAlerta.media,
+                lote, TipoAlerta.vencimiento_amarillo, CriticidadAlerta.MEDIA,
                 "Lote " + lote.getNumeroLote() + " vence en " +
                 diasRestantes + " días");
 
         } else {
             crearAlertaVencimientoSiNoExiste(
-                lote, TipoAlerta.vencimiento_verde, CriticidadAlerta.baja,
+                lote, TipoAlerta.vencimiento_verde, CriticidadAlerta.BAJA,
                 "Lote " + lote.getNumeroLote() + " vence en " +
                 diasRestantes + " días");
         }
@@ -224,7 +224,7 @@ public class AlertaService {
 
         alertaRepo.save(Alerta.builder()
             .tipo(TipoAlerta.stock_minimo)
-            .criticidad(CriticidadAlerta.alta)
+            .criticidad(CriticidadAlerta.ALTA)
             .mensaje("Stock crítico: " + producto.getNombre() +
                 " tiene " + producto.getStockTotal() +
                 " unidades (mínimo: " + producto.getStockMinimo() + ")")

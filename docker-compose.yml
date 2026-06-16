@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:5432/postgres
+      DB_USERNAME: postgres.nhcxmeaustcfuutfengf
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: 86400000
+      CORS_ORIGINS: http://localhost:3000
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
