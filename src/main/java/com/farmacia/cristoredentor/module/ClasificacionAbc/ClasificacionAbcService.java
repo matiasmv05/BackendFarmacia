@@ -121,10 +121,10 @@ public ClasificacionAbcHistorialDTO ejecutarCalculo(
         detalleRepo.calcularValorRotacionPorProducto(desde);
 
     if (valores.isEmpty()) {
-        throw new BusinessException(String.format(
-            "No hay movimientos de salida en los últimos %d meses para calcular ABC.",
-            periodoMeses));
-    }
+    throw new ResponseStatusException(
+        HttpStatus.NOT_FOUND,
+        String.format("No hay movimientos de salida en los últimos %d meses para calcular ABC.", periodoMeses));
+}
 
     BigDecimal total = valores.stream()
         .map(ValorInventarioProductoDTO::getValorInventario)
